@@ -1,6 +1,10 @@
-#piece of code from
+#Stephany Lais de Araujo Souza
+#stephatech123@gmail.com
+#mobile: 0899 725258
+#helpful piece of code from
 # DJ Oamen 04 august 2016
-# youtube: https://www.youtube.com/watch?v=23_93SXvCpc#
+# youtube: https://www.youtube.com/watch?v=23_93SXvCpc
+############IMPORTS#####################################################################################################
 from tkinter import*#standard GUI(Graphical User Interface)package
 import csv
 import time
@@ -9,18 +13,18 @@ root = Tk()
 root.geometry("1350x700+0+0")
 root.resizable(0,0)
 root.title("BMI Calculator")
-###############################Function to save CSV#####################################################################
+###############################Function to save CSV file################################################################
 def  save_data_csv(): #Function
 
 
     with open('bmi_calculator_store.csv', 'a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(["Date-Time,Name,Height,Weight"])
+        writer.writerow(["Date,Time,Name,Height,Weight"])
         writer.writerow([datetime.today().strftime('%Y-%m-%d-%H:%M:%S'),name_var.get(),height_var.get(),weight_var.get()])
 
     return
 
-###########Function#####################################################################################################
+###########FUNCTION CALLING ############################################################################################
 def BMI_Call( bd=8, relief="raise"):#Function
 
     BHeight = float(height_var.get())
@@ -35,9 +39,9 @@ def BMI_Call( bd=8, relief="raise"):#Function
             lblBMIResult.config(text="Please, enter a valid number  greater than 0.")
         else:
             BMI = str('%.2f' % (BWeight / (BHeight * BHeight)))
-            lblBMIResult.config(text="{} is {},years old:your current BMI is {}".format(name_var.get(), age_var.get(), BMI))
+            lblBMIResult.config(text="{} is {} years old and BMI: {}".format(name_var.get(), age_var.get(), BMI))
             save_data_csv()
-########variables#######################################################################################################
+#######VARIABLES########################################################################################################
 weight_var = DoubleVar()
 weight_value = weight_var.get()
 height_var = DoubleVar()
@@ -52,10 +56,10 @@ f0.pack()#creating a label widget
 
 f1 = Frame(root, width=600, height = 600, bd=8, relief="raise")
 f1.pack(side=LEFT)
-f2 = Frame(root, width = 300,height = 700, bd=8, relief="raise")
+f2 = Frame(root, width =400,height = 400, bd=8, relief="raise")
 f2.pack(side=RIGHT)
 
-fla = Frame(f1, width =600, height =200, bd=20, relief="raise")
+fla = Frame(f1, width =700, height =200, bd=20, relief="raise")
 fla.pack(side=TOP)
 f1b = Frame(f1, width = 600, height = 200, bd=20, relief ="raise")
 f1b.pack(side=TOP)
@@ -89,12 +93,12 @@ txtheight = Entry(f1b, textvariable = height_var, font=('arial', 16, 'bold'), bd
 txtheight.grid(row = 1,column=0)
 ##############RESULT OUTPUT LABEL#############################################################################################
 lblBMIResult = Label(f1b, padx =16, pady=16, bd=16,
-                     fg="#000000", font=('arial',30),
+                     fg="#000000", font=('comic',32),
                      bg="light green", relief ='sunk', width = 34, height = 1)
 lblBMIResult.grid(row =2, column=0)
 ####################TABLE###############################################################################################
 lblBMITable = Label(f2,font=('arial',20,'bold'), text="BMI Table").grid(row = 0, column = 0)
-txtlblBMITable = Text(f2, height = 12, width = 28, bd=16, font=('arial',12,'bold'))
+txtlblBMITable = Text(f2, height = 12, width = 25, bd=16, font=('arial',12,'bold'))
 txtlblBMITable.grid(row=1,column=0)
 #########################TABLE OPTIONS##################################################################################
 txtlblBMITable.insert(END,'Meaning \t\t'+ "BMI \n\n")
@@ -104,7 +108,7 @@ txtlblBMITable.insert(END,'Overweight \t\t'+ "25-29,9\n\n")
 txtlblBMITable.insert(END,'Obesity \t\t'+ ">=30\n\n")
 ####################BUTTON##############################################################################################
 btnBMI = Button(f2, text="Enter to \ncheck your \nBMI",padx=8,pady=8,bd=12, width = 21,
-                font=('arial',20, 'bold'), height=3, command=BMI_Call)
+                font=('arial',15, 'bold'), height=3, command=BMI_Call)
 btnBMI.grid(row = 2,column=0)
 
 
