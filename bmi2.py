@@ -3,45 +3,45 @@
 # youtube: https://www.youtube.com/watch?v=23_93SXvCpc#
 from tkinter import*#standard GUI(Graphical User Interface)package
 import csv
+import time
+from datetime import datetime
 root = Tk()
 root.geometry("1350x700+0+0")
 root.resizable(0,0)
 root.title("BMI Calculator")
-###########METHOD#######################################################################################################
+###############################Function to save CSV#####################################################################
+def  save_data_csv(): #Function
 
 
-def BMI_Call():#Function
+    with open('bmi_calculator_store.csv', 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Date-Time,Name,Height,Weight"])
+        writer.writerow([datetime.today().strftime('%Y-%m-%d-%H:%M:%S'),name_var.get(),height_var.get(),weight_var.get()])
 
-    BHeight = float(var2.get())
-    BWeight = float(var1.get())
-    BMI = str('%.2f' % (BWeight / (BHeight * BHeight)))
-    lblBMIResult.config(text="{} is {},years old:your current BMI is {}".format(myTextl1, myTextl2, BMI))
-    ###################MY TRIALS############################################################################################
-    # Bname = str(var3.get())
-    # Bage = int(var4.get())
+    return
 
-    # lblBMIResult.config(text= Bname + Bage+',years old:your current BMI is'+ BMI)
-    # lblBMIResult.config(text="{} is {},years old:your current BMI is {}").format(Bname,Bage,BMI)
-    # lblBMIResult.config(text="{} is {},years old:your current BMI is {}".format(myTextl1,myTextl2,BMI))
-    # lblBMIResult(text=Bname+BMI)
+###########Function#####################################################################################################
+def BMI_Call( bd=8, relief="raise"):#Function
 
-    #####
-    '''while True:
-        BMI = entry("Please enter a loud message (must be all caps): ")
-        if not data.isnumeric():
-            print("Please, enter a valid numeric/positive/appropriate range value.")
-            continue
+    BHeight = float(height_var.get())
+    BWeight = float(weight_var.get())
+
+
+    if BHeight %2 ==0:
+        lblBMIResult.config(text="Please, enter a valid numeric/positive/appropriate range value.")
+
+    else:
+        if BHeight <= 0:
+            lblBMIResult.config(text="Please, enter a valid number  greater than 0.")
         else:
-            # we're happy with the value given.
-            # we're ready to exit the loop.
-            break'''
-
+            BMI = str('%.2f' % (BWeight / (BHeight * BHeight)))
+            lblBMIResult.config(text="{} is {},years old:your current BMI is {}".format(name_var.get(), age_var.get(), BMI))
+            save_data_csv()
 ########variables#######################################################################################################
-var1 = DoubleVar()
-var2 = DoubleVar()
-#var3 = myTextl1Var()
-#var4 = myTextl2()
-
+weight_var = DoubleVar()
+weight_value = weight_var.get()
+height_var = DoubleVar()
+height_value = height_var.get()
 
 ############FRAMES######################################################################################################
 Tops = Frame(root,width=1350, height=50, bd=8, relief="raise")
@@ -65,13 +65,15 @@ lblTitle=Label(Tops, text="       BMI Calculator Program  ",padx=16,pady=16,bd=1
                 bg="light green", relief = 'raise', width = 52, height = 0)
 lblTitle.pack()
 #################LABEL AND TEXT#########################################################################################
-myLabel1 = Label(f0, text="Enter your name:").grid(row=0, column = 0)#creating a label widget
-myTextl1 = Entry(f0, bd=5).grid(row=0, column = 1)
+name_label = Label(f0, text="Enter your name:").grid(row=0, column = 0)#creating a label widget
+name_var = StringVar()
+#name_value = name_var.get()
+name_entry = Entry(f0, textvariable = name_var, bd=5).grid(row=0, column = 1)
 
-myLabel2 = Label(f0, text="Enter your age:").grid(row=1, column = 0)
-
-myTextl2 = Entry(f0,bd=5).grid(row=1, column = 1)
-
+age_label = Label(f0, text="Enter your age:").grid(row=1, column = 0)
+age_var = StringVar()
+#age_value = age_var.get()
+age_entry = Entry(f0, textvariable = age_var, bd=5).grid(row=1, column = 1)
 ########################CHECK BOX Unit##################################################################################
 myUnit1 = Label(f0, text="Units:").grid(row=0, column = 3)
 Checkbutton(f0, text='Metric').grid(row=1, column = 3)
@@ -79,13 +81,13 @@ Checkbutton(f0, text='Imperial').grid(row=2, column = 3)
 
 #########################SCALE OF WEIGHT################################################################################
 lblWeight =Label(fla, text ="Select Weight in Kilogramas ", font=('arial', 20, 'bold'), bd=20).grid(row = 0, column=0)
-Bodyweight = Scale(fla,variable =var1, from_ = 1, to =500, length=880, tickinterval=30, orient= HORIZONTAL)
+Bodyweight = Scale(fla, variable =weight_var, from_ = 1, to =500, length=880, tickinterval=30, orient= HORIZONTAL)
 Bodyweight.grid(row = 1, column=0)
 ###################TEXT#################################################################################################
 lblheight = Label(f1b, text= "Enter Height in Meters Square", font =('arial',20, 'bold'), bd=20).grid(row = 0, column =0)
-txtheight = Entry(f1b, textvariable = var2, font=('arial', 16, 'bold'),bd=16, width=22, justify='center')
+txtheight = Entry(f1b, textvariable = height_var, font=('arial', 16, 'bold'), bd=16, width=22, justify='center')
 txtheight.grid(row = 1,column=0)
-##############RESULT OUTPUT#############################################################################################
+##############RESULT OUTPUT LABEL#############################################################################################
 lblBMIResult = Label(f1b, padx =16, pady=16, bd=16,
                      fg="#000000", font=('arial',30),
                      bg="light green", relief ='sunk', width = 34, height = 1)
@@ -107,13 +109,9 @@ btnBMI.grid(row = 2,column=0)
 
 
 root.mainloop()#shows the main panel
-###################Storing data CSV FILE######################################
-#class myData
-f = open('MyData','r')
-print(f.read())
 
-file = open('MyDataBMI','w')
-file.write("Marcia, 1.72,96,31/07/2020,18:30")
+
+
 
 
 
