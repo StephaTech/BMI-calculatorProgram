@@ -1,4 +1,3 @@
-#Stephany Souza
 #piece of code from
 # DJ Oamen 04 august 2016
 # youtube: https://www.youtube.com/watch?v=23_93SXvCpc#
@@ -10,16 +9,33 @@ root.resizable(0,0)
 root.title("BMI Calculator")
 ###########METHOD###############
 def BMI_Call():#Function
+
     BHeight = float(var2.get())
     BWeight = float(var1.get())
+    #Bname = str(myTextl1.get())
+    #Bage = int(myTextl2.get())
     BMI = str('%.2f' %(BWeight / (BHeight * BHeight)))
-    lblBMIResult.config(text=BMI)#
+    #lblBMIResult.config(text= Bname + Bage+',years old:your current BMI is'+ BMI)
+    #lblBMIResult.config(text="{} is {},years old:your current BMI is {}").format(Bname,Bage,BMI)
+    lblBMIResult.config(text="{} is {},years old:your current BMI is {}".format(myTextl1,myTextl2,BMI))
+    #lblBMIResult.config(text="{} is {},years old:your current BMI is {}".format(myTextl1,myTextl2,BMI))
+    #lblBMIResult(text=Bname+BMI)
+
 ########variables##############
 var1 = DoubleVar()
 var2 = DoubleVar()
+#var3 = myTextl1Var()
+#var4 = myTextl2()
+
+
 ############FRAMES###############
 Tops = Frame(root,width=1350, height=50, bd=8, relief="raise")
 Tops.pack(side=TOP)
+
+#f0 = Frame(root,width=1350, height=50, bd=8, relief="raise")
+#f0.pack(row=0, column = 0)#creating a label widget
+
+
 f1 = Frame(root, width=600, height = 600, bd=8, relief="raise")
 f1.pack(side=LEFT)
 f2 = Frame(root, width = 300,height = 700, bd=8, relief="raise")
@@ -31,20 +47,34 @@ f1b = Frame(f1, width = 600, height = 200, bd=20, relief ="raise")
 f1b.pack(side=TOP)
 #########################TITLE##########################
 lblTitle=Label(Tops, text="       BMI Calculator Program  ",padx=16,pady=16,bd=16,
-                fg="#000000", font=('arrial', 54,'bold'),
-                bg="light green", relief = 'raise', width = 32, height = 1)
+                fg="#000000", font=('arrial', 24,'bold'),
+                bg="light green", relief = 'raise', width = 52, height = 0)
 lblTitle.pack()
-##############SCALE OF WEIGHT##################
+######
+myLabel1 = Label(Tops, text="Enter your name:")#.grid(row=0, column = 0)#creating a label widget
+myTextl1 = Entry(Tops,textvariable = var3,bd=5)#.grid(row=0, column = 1)
+
+myLabel2 = Label(Tops, text="Enter your age")#.grid(row=1, column = 0)
+
+myTextl2 = Entry(Tops,textvariable = var4,bd=5)#.grid(row=1, column = 1)
+
+myLabel1.pack(side=LEFT)
+myTextl1.pack(side=LEFT)
+myLabel2.pack(side=RIGHT)
+myTextl2.pack(side=RIGHT)
+#########################SCALE OF WEIGHT#################
 lblWeight =Label(fla, text ="Select Weight in Kilogramas ", font=('arial', 20, 'bold'), bd=20).grid(row = 0, column=0)
 Bodyweight = Scale(fla,variable =var1, from_ = 1, to =500, length=880, tickinterval=30, orient= HORIZONTAL)
 Bodyweight.grid(row = 1, column=0)
+##############T##################
+
 ###################TEXT###########################
 lblheight = Label(f1b, text= "Enter Height in Meters Square", font =('arial',20, 'bold'), bd=20).grid(row = 0, column =0)
 txtheight = Entry(f1b, textvariable = var2, font=('arial', 16, 'bold'),bd=16, width=22, justify='center')
 txtheight.grid(row = 1,column=0)
 ##############RESULT OUTPUT####################
 lblBMIResult = Label(f1b, padx =16, pady=16, bd=16,
-                     fg="#000000", font=('arial',30,'bold'),
+                     fg="#000000", font=('arial',30),
                      bg="light green", relief ='sunk', width = 34, height = 1)
 lblBMIResult.grid(row =2, column=0)
 ####################TABLE######################
